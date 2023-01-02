@@ -1,0 +1,124 @@
+#include <iostream>
+using namespace std;
+#include<string.h>
+
+int const size=3;
+
+struct student{
+    int rno;
+    char name[20];
+    float SGPA;
+};
+void accept(struct student list[size]);
+void display(struct student list [80]);
+void insertSort(struct student list[size]);
+void binarysearch(struct student list[size]);
+
+void accept(struct student list[size])
+{
+    int i;
+    for (i=0;i<size;i++)
+    {
+        cout<<"Enter rollno :"<<endl;
+        cin>>list[i].rno;
+        cout<<"Enter name :"<<endl;
+        cin>>list[i].name;
+        cout<<"Enter  SGPA :"<<endl;
+        cin>>list[i].SGPA;
+    }
+}
+void display(struct student list[80])
+{
+    int i;
+    cout<<"\n Roll no \t Name \t SGPA \n";
+    for(i=0;i<size;i++)
+    {
+        cout<<"\n"<<list[i].rno<<"\t"<<list[i].name<<"\t"<<list[i].SGPA;
+    }
+}
+
+
+void insertSort(struct student list[size])
+{
+    int k,j;
+    struct student temp;
+    for(k=1;k<size;k++)
+    {
+        temp=list[k];
+        j=k-1;
+        while(list[j].rno>temp.rno && j>=0)
+        {
+            list[j+1]=list[j];
+            --j;
+        }
+        list[j+1]=temp;
+    }
+}
+
+
+void binarysearch(struct student list[size])
+{
+    int k, lower, upper, mid;
+    int search;
+    cout<<"\n Enter roll no of the students you want to search :";
+    cin>>search;
+    
+    lower=0;
+    upper=size-1;
+    mid=(lower+upper)/2;
+    
+    while(lower<=upper)
+    {
+        if(list[mid].rno<search){
+        lower=mid+1;
+        mid=(lower+upper)/2;
+        }
+        
+        else if(list[mid].rno==search)
+        {
+            cout<<"\n"<<list[mid].rno<<"\t"<<list[mid].name<<"\t"<<list[mid].SGPA;
+            break;
+        }
+        else{
+        upper=mid-1;
+        mid=(lower+upper)/2;
+        }
+    }
+    if(lower>upper)
+    cout<<search<<"not found in the list";
+}
+
+main()
+{
+    int ch, i;
+    struct student data[20];
+    
+
+    do{
+    cout<<"\n 1:accept data";
+    cout<<"\n 2:Insertion Sort";
+    cout<<"\n 3:Binary Search";
+    cout<<"\n Select your choice:";
+    cin>>ch;
+
+    switch(ch)
+    {
+        case 1:
+        accept (data);
+        break;
+
+        case 2:
+        insertSort(data);
+        display(data);
+        break;
+
+        case 3:
+        binarysearch(data);
+        break;
+
+        default:
+        cout<<"Invalid choice....";
+     }
+    }while(true);
+
+}

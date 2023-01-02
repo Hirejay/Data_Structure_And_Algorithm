@@ -1,0 +1,98 @@
+#include <iostream>
+using namespace std;
+#include <string.h>
+int const size = 3;
+struct student{
+    int rno;
+    char name[20];
+    float SGPA;
+};
+void accept(struct student list[size]);
+void display(struct student list[80]);
+void bubbleSort(struct student list[size]);
+void search(struct student list[size]);
+
+void accept(struct student list[size]){
+    int i;
+    for (i = 0; i < size; i++)
+    {
+        cout << "Enter rollno,name & SGPA:";
+        cin >> list[i].rno >> list[i].name >> list[i].SGPA;
+    }
+}
+void display(struct student list[80]){
+    int i;
+    cout << "\n Roll no \t Name \t SGPA \n";
+    for (i = 0; i < size; i++)
+    {
+        cout << "\n"<< list[i].rno << "\t" << list[i].name << "\t" << list[i].SGPA;
+    }
+}
+
+void bubbleSort(struct student list[size]){
+    int i, j;
+    struct student temp;
+    for (i = 0; i < size - 1; i++)
+    {
+        for (j = 0; j < (size - 1 - i); j++)
+        {
+            if (list[j].rno > list[j + 1].rno)
+            {
+                temp = list[j];
+                list[j] = list[j + 1];
+                list[j + 1] = temp;
+            }
+        }
+    }
+}
+void linearsearch(struct student list[size]){
+    float SGPA;
+    int i;
+    cout << "\n Enter SGPA";
+    cin >> SGPA;
+
+    cout << "\n Rollno \t Name \t SGPA \n";
+    for (int i = 0; i < size; i++)
+    {
+        if (SGPA == list[i].SGPA)
+        {   
+            cout << "\n"<< list[i].rno << "\t" << list[i].name << "\t" << list[i].SGPA;                
+        }       
+    }
+}
+int main(){
+    int ch, i;
+    struct student data[20];
+    
+    do
+    {
+        cout << "\n 1:accept data ";
+        cout << "\n 2:Bubble Sort";
+        cout << "\n 3:Search";
+        cout << "\n 4:Exit";
+        cout << "\n Select your choice:";
+        cin >> ch;
+        switch (ch)
+        {
+        case 1:
+            accept(data);
+            break;
+
+        case 2:
+            bubbleSort(data);
+            display(data);
+            break;
+
+        case 3:
+            linearsearch(data);
+            break;
+
+        case 4:
+            cout<<"Exited Successfully";
+            break;
+
+        default:
+            cout << "Invalid choice....";
+        }
+    }while(ch!=4);
+}

@@ -1,0 +1,106 @@
+#include<iostream>
+#include<conio.h>
+#include<process.h>
+using namespace std;
+#define max 5
+int queue[max];
+int front=-1,rear=-1;
+
+int isEmpty(){
+    if(front==-1&&rear==-1)
+    return 1;
+    else
+    return 0;
+}
+int isFull(){
+    if((rear+1)%max==front)
+    return 1;
+    else
+    return 0;
+}
+void enqueue(){
+    if(isFull()==1){
+        cout<<"SORRY:queue is full";
+        return;
+    }
+    int data;
+    cout<<"enter the data: ";
+    cin>>data;
+    if(isEmpty()==1){
+        front++;
+        rear++;
+        queue[rear]=data;
+    }
+    else{
+        rear=(rear+1)%max;
+        queue[rear]=data;
+
+    }
+}
+void dequeue(){
+    if(isEmpty()==1){
+        cout<<"SORRY:queue is empty";
+        return;
+    }
+    if(front==rear){
+        cout<<"\nthe data at front end: "<<queue[front];
+        front=rear=-1;
+
+    }
+    else{
+        cout<<"\nthe data at front end: "<<queue[front];
+        queue[front]=0;
+        front=(front+1)%max;
+    }
+}
+void peep(){
+    if(isEmpty()==1){
+        cout<<"SORRY:queue is empty";
+    }
+    else{
+        cout<<"\nthe data at front end: "<<queue[front];
+
+    }
+}
+void display(){
+    if(isEmpty()==1){
+        cout<<"SORRY:queue is empty";
+    }
+    else{
+        cout<<"the element in queue are: ";
+        for(int i=front;i<=rear;i++){
+            cout<<queue[i]<<"   ";
+        }
+    }
+}
+int main(){
+    char ch;
+    do{
+        int choice;
+        cout<<"\nqueue operations\n1.enqueue\n2.dequeue\n3.front\n4.display\n5.exit\n\nenter ur choice: ";
+        cin>>choice;
+        switch(choice){
+            case 1:
+            enqueue();
+            break;
+            case 2:
+            dequeue();
+            break;
+            case 3:
+            peep();
+            break;
+            case 4:
+            display();
+            break;
+            case 5:
+            exit(0);
+            default:
+            cout<<"\n dear please enter valid choice";        
+        }
+        cout<<"\ncontinue(y/n):";
+        ch=getche();
+    }
+    while(ch='y');
+}
+
+
